@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Examen Teórico COSEVI 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-elements">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <main class="app-container">
+        
+        <!-- Pantalla de Inicio -->
+        <section id="welcome-screen" class="screen active">
+            <header>
+                <div class="logo-container">
+                    <div class="shield"></div>
+                    <h1>COSEVI</h1>
+                </div>
+                <h2>Simulador Examen Teórico de Manejo</h2>
+                <span class="badge">Actualización 2026 - Automóvil (Clase B)</span>
+            </header>
+            
+            <div class="glass-card rules-card">
+                <h3>Instrucciones del Examen</h3>
+                <ul>
+                    <li><strong>Preguntas:</strong> <span id="total-questions-info">20</span> preguntas seleccionadas aleatoriamente.</li>
+                    <li><strong>Tiempo:</strong> <span id="total-time-info">25:00</span> minutos en total.</li>
+                    <li><strong>Aprobación:</strong> Mínimo 80% de aciertos.</li>
+                </ul>
+                <div class="study-mode-container" style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                    <label class="switch">
+                        <input type="checkbox" id="study-mode-toggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span style="font-size: 1.1rem; color: var(--text-primary);">Modo Estudio (mostrar respuestas al avanzar)</span>
+                </div>
+                <p class="warning-text">Una vez iniciado, el tiempo no se detendrá. Lee cuidadosamente cada pregunta.</p>
+                <button id="start-btn" class="primary-btn">Iniciar Examen</button>
+            </div>
+        </section>
+
+        <!-- Pantalla del Examen -->
+        <section id="exam-screen" class="screen">
+            <header class="exam-header">
+                <div class="progress-container">
+                    <span id="question-counter">Pregunta 1 / 20</span>
+                    <div class="progress-bar-bg">
+                        <div id="progress-bar" class="progress-bar-fill"></div>
+                    </div>
+                </div>
+                <div class="timer-container">
+                    <svg class="timer-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    <span id="timer">25:00</span>
+                </div>
+            </header>
+            
+            <div class="glass-card question-card">
+                <h2 id="question-text">Cargando pregunta...</h2>
+                <div id="options-container" class="options-container">
+                    <!-- Opciones generadas por JS -->
+                </div>
+                <div class="exam-actions">
+                    <button id="next-btn" class="primary-btn" disabled>Siguiente Pregunta</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pantalla de Resultados -->
+        <section id="results-screen" class="screen">
+            <header>
+                <h2 id="result-title">¡Examen Finalizado!</h2>
+                <div class="score-circle">
+                    <span id="score-text">0%</span>
+                </div>
+                <p id="result-message" class="result-message"></p>
+            </header>
+
+            <div class="glass-card results-card">
+                <h3>Revisión del Examen</h3>
+                <div id="review-container" class="review-container">
+                    <!-- Revisión generada por JS -->
+                </div>
+                <div class="results-actions">
+                    <button id="restart-btn" class="primary-btn outline">Volver a Intentar</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Feedback Modal (Modo Estudio) -->
+    <div id="feedback-modal" class="modal-overlay">
+        <div class="glass-card modal-content" style="text-align: center; max-width: 500px; width: 90%;">
+            <h3 id="feedback-title" style="margin-bottom: 15px;">¡Respuesta Correcta!</h3>
+            <div class="feedback-details" style="margin-bottom: 20px; text-align: left;">
+                <p style="margin-bottom: 10px;"><strong>Respuesta correcta:</strong> <span id="feedback-correct-answer" style="color: var(--accent-green); font-weight: 600;"></span></p>
+                <p><strong>Explicación:</strong></p>
+                <p id="feedback-explanation" style="color: var(--text-secondary); font-style: italic; margin-top: 8px; line-height: 1.4;"></p>
+            </div>
+            <button id="feedback-next-btn" class="primary-btn">Continuar</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
