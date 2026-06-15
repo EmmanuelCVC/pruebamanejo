@@ -38,6 +38,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const feedbackExplanation = document.getElementById('feedback-explanation');
     const feedbackNextBtn = document.getElementById('feedback-next-btn');
 
+    // Exit Elements
+    const exitBtn = document.getElementById('exit-btn');
+    const exitModal = document.getElementById('exit-modal');
+    const confirmExitBtn = document.getElementById('confirm-exit-btn');
+    const cancelExitBtn = document.getElementById('cancel-exit-btn');
+
+
     // State
     let questions = [];
     let currentQuestionIndex = 0;
@@ -106,15 +113,23 @@ document.addEventListener('DOMContentLoaded', () => {
             
             questions = selectedQuestions;
             
-            // Update total time based on the number of questions to show
-            totalExamTime = questions.length * TIME_PER_QUESTION_SEC;
+            // Apply final selection
+            questions = selectedQuestions;
             
-            // Update UI info
-            totalQuestionsInfo.textContent = questions.length;
-            const minutes = Math.floor(totalExamTime / 60);
-            totalTimeInfo.textContent = `${minutes}:00`;
-            
-            startBtn.disabled = false;
+            // Check for saved state
+            if (localStorage.getItem('examState')) {
+                loadState();
+            } else {
+                // Update total time based on the number of questions to show
+                totalExamTime = questions.length * TIME_PER_QUESTION_SEC;
+                
+                // Update UI info
+                totalQuestionsInfo.textContent = questions.length;
+                const minutes = Math.floor(totalExamTime / 60);
+                totalTimeInfo.textContent = `${minutes}:00`;
+                
+                startBtn.disabled = false;
+            }
             
         } catch (error) {
             console.error("Could not load questions:", error);
@@ -122,6 +137,50 @@ document.addEventListener('DOMContentLoaded', () => {
             startBtn.disabled = true;
             startBtn.textContent = "Error al cargar";
         }
+    }
+
+    // State Persistence
+    function saveState() {
+        const state = {
+            questions: questions,
+            currentQuestionIndex: currentQuestionIndex,
+            userAnswers: userAnswers,
+            timeRemaining: timeRemaining,
+            totalExamTime: totalExamTime,
+            studyMode: studyModeToggle.checked
+        };
+        localStorage.setItem('examState', JSON.stringify(state));
+    }
+
+    function loadState() {
+        try {
+            const state = JSON.parse(localStorage.getItem('examState'));
+            if (state && state.questions && state.questions.length > 0) {
+                questions = state.questions;
+                currentQuestionIndex = state.currentQuestionIndex;
+                userAnswers = state.userAnswers;
+                timeRemaining = state.timeRemaining;
+                totalExamTime = state.totalExamTime;
+                studyModeToggle.checked = state.studyMode;
+                
+                // Update UI info
+                totalQuestionsInfo.textContent = questions.length;
+                const minutes = Math.floor(totalExamTime / 60);
+                totalTimeInfo.textContent = `${minutes}:00`;
+                startBtn.disabled = false;
+                
+                // Jump straight into the exam
+                showScreen('exam');
+                loadQuestion(currentQuestionIndex);
+                startTimer();
+            }
+        } catch (e) {
+            console.error("Error loading state", e);
+        }
+    }
+
+    function clearState() {
+        localStorage.removeItem('examState');
     }
 
     // Navigation
@@ -152,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Reset timer UI
         timerContainer.classList.remove('timer-warning');
         
+        saveState();
         showScreen('exam');
         loadQuestion(currentQuestionIndex);
         startTimer();
@@ -205,6 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (studyModeToggle.checked) {
             pauseTimer();
+            saveState(); // Save state while reading feedback
             
             // Populate feedback modal
             if (isCorrect) {
@@ -227,6 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function proceedToNextQuestion() {
         currentQuestionIndex++;
+        saveState();
         
         if (currentQuestionIndex < questions.length) {
             // Animate transition slightly
@@ -260,6 +322,11 @@ document.addEventListener('DOMContentLoaded', () => {
             timeRemaining--;
             updateTimerDisplay();
             
+            // Save state periodically (every 5 seconds)
+            if (timeRemaining % 5 === 0) {
+                saveState();
+            }
+            
             if (timeRemaining <= 60) {
                 timerContainer.classList.add('timer-warning');
             }
@@ -280,6 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Results Logic
     function finishExam(isTimeout = false) {
         clearInterval(timerInterval);
+        clearState();
         
         // Calculate score
         let correctAnswers = 0;
@@ -388,6 +456,46 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             proceedToNextQuestion();
         }, 300); // wait for modal fade out
+    });
+
+    // Exit Button Logic (Hold to quit)
+    let exitHoldTimer = null;
+
+    function startExitHold(e) {
+        if(e.cancelable) e.preventDefault(); // Prevent default text selection
+        exitBtn.classList.add('holding');
+        exitHoldTimer = setTimeout(() => {
+            // Held long enough
+            exitBtn.classList.remove('holding');
+            pauseTimer();
+            exitModal.classList.add('active');
+        }, 2000); // 2 seconds hold
+    }
+
+    function cancelExitHold() {
+        exitBtn.classList.remove('holding');
+        clearTimeout(exitHoldTimer);
+    }
+
+    exitBtn.addEventListener('mousedown', startExitHold);
+    exitBtn.addEventListener('touchstart', startExitHold, {passive: false});
+    
+    exitBtn.addEventListener('mouseup', cancelExitHold);
+    exitBtn.addEventListener('mouseleave', cancelExitHold);
+    exitBtn.addEventListener('touchend', cancelExitHold);
+
+    // Modal Exit Buttons
+    confirmExitBtn.addEventListener('click', () => {
+        clearState();
+        exitModal.classList.remove('active');
+        showScreen('welcome');
+        // Need to reload questions so a new exam gets a fresh set of random 40
+        loadQuestions();
+    });
+
+    cancelExitBtn.addEventListener('click', () => {
+        exitModal.classList.remove('active');
+        resumeTimer();
     });
 
     // Init

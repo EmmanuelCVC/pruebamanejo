@@ -63,6 +63,14 @@
                     </svg>
                     <span id="timer">25:00</span>
                 </div>
+                <button id="exit-btn" class="exit-btn" title="Mantén presionado para salir">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7"></polyline>
+                        <line x1="21" y1="12" x2="9" y2="12"></line>
+                    </svg>
+                    <div class="exit-progress"></div>
+                </button>
             </header>
             
             <div class="glass-card question-card">
@@ -109,6 +117,18 @@
                 <p id="feedback-explanation" style="color: var(--text-secondary); font-style: italic; margin-top: 8px; line-height: 1.4;"></p>
             </div>
             <button id="feedback-next-btn" class="primary-btn">Continuar</button>
+        </div>
+    </div>
+
+    <!-- Exit Confirmation Modal -->
+    <div id="exit-modal" class="modal-overlay">
+        <div class="glass-card modal-content" style="text-align: center; max-width: 400px; width: 90%;">
+            <h3 style="color: var(--accent-red); margin-bottom: 15px;">¿Abandonar Examen?</h3>
+            <p style="margin-bottom: 25px; color: var(--text-primary);">Si sales ahora perderás todo el progreso y tendrás que iniciar un nuevo examen desde cero.</p>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button id="confirm-exit-btn" class="primary-btn" style="background: var(--accent-red); box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.39);">Sí, salir</button>
+                <button id="cancel-exit-btn" class="primary-btn outline">No, continuar</button>
+            </div>
         </div>
     </div>
 
