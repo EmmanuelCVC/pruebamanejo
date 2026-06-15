@@ -5170,5 +5170,221 @@
         "correct_index": 1,
         "explanation": "El protocolo correcto es: estacionar de forma segura, colocarse el chaleco reflectante, señalizar la zona con triángulos de seguridad para prevenir nuevos accidentes, llamar al 9-1-1 proporcionando ubicación y detalles, y luego atender a los heridos según la capacitación disponible.",
         "chapter": 2
+    },
+    {
+        "question": "¿Qué acción puede hacer la autoridad si el conductor no está presente?",
+        "options": [
+            "Únicamente tomar una foto.",
+            "Pedir que el vehículo sea retirado o retirarlo, además de la multa.",
+            "Esperar a que el conductor regrese sin actuar",
+            "Solo dejar un aviso sin sanción"
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
+    },
+    {
+        "question": "Negarse a realizar prueba de alcoholemia:",
+        "options": [
+            "Es permitido",
+            "Es opcional",
+            "No tiene consecuencia",
+            "Es infracción"
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 5
+    },
+    {
+        "question": "Una obligación de la persona al conducir es",
+        "options": [
+            "Dar prioridad solo a vehículos grandes.",
+            "Conducir rápido para evitar presas.",
+            "Evitar usar cinturón en trayectos cortos.",
+            "Respetar las reglas de tránsito y conducir de forma segura."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
+    },
+    {
+        "question": "¿Qué debe indicar sobre las víctimas al 9-1-1 en un accidente de tránsito?",
+        "options": [
+            "Solo si hay sangre visible.",
+            "Solo el sexo de la víctima y su edad",
+            "Cantidad de personas lesionadas y edades aproximadas.",
+            "Solo si están inconscientes."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
+    },
+    {
+        "question": "¿Cuál es una excepción en la forma de las señales reglamentarias?",
+        "options": [
+            "Todas son cuadradas.",
+            "Todas son rectangulares.",
+            "Todas son triangulares.",
+            "ALTO y CEDA no son rectangurales."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 2
+    },
+    {
+        "question": "Gracias a las medidas de movilidad sostenible, un cantón se percibe como:",
+        "options": [
+            "una zona sin control vial.",
+            "un sitio con más riesgos para peatones.",
+            "un lugar más amigable y protegido para todos los usuarios de la vía.",
+            "un lugar más rápido solo para carros."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
+    },
+    {
+        "question": "Si usted ve o escucha un vehículo de emergencia con luces y sirenas encendidas, ¿qué debe hacer?",
+        "options": [
+            "Ceder el paso, reducir la velocidad y orillarse hacia la derecha para permitir un paso libre y seguro, incluso si viene por el carril contrario.",
+            "Mantener la velocidad y trayectoria si no invade su carril.",
+            "Acelerar para despejar antes la intersección.",
+            "Detenerse únicamente si se trata de una ambulancia."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
+    },
+    {
+        "question": "¿Cuál es la diferencia de visión periférica entre un adulto y un niño?",
+        "options": [
+            "Que el adulto puede abarcar aproximadamente 180°, mientras que el niño solo alrededor de 70°.",
+            "Que el niño posee mayor amplitud visual periférica que el adulto.",
+            "Que ambos tienen el mismo campo visual en condiciones normales.",
+            "Que la diferencia solo aparece de noche y no de día."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
+    },
+    {
+        "question": "¿Qué debe hacerse si los aros presentan abolladuras o grietas?",
+        "options": [
+            "Repararlos o reemplazarlos si es necesario.",
+            "Pintarlos.",
+            "Inflar más la llanta.",
+            "Ignorarlos."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
+    },
+    {
+        "question": "¿Cuál es una excepción de edad  para obtener licencia?",
+        "options": [
+            "Se puede obtener la licencia D sin límite de edad.",
+            "Se puede obtener la licencia B-1 a los 15 años.",
+            "Se puede obtener la licencia C a los 17 años.",
+            "Se puede obtener la licencia tipo A1 a los 16 años cumplidos."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
+    },
+    {
+        "question": "¿Qué caracteriza una intersección a nivel?",
+        "options": [
+            "Hay túnel.",
+            "Hay puente.",
+            "Hay semáforo siempre.",
+            "Las vías están al mismo nivel."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
+    },
+    {
+        "question": "¿Cómo describe el “Atropello”?",
+        "options": [
+            "Acción o efecto de pasar por encima o de golpear una persona o animal, generalmente con un vehículo.",
+            "Pérdida de control por lluvia intensa.",
+            "Choque entre vehículo y objeto fijo.",
+            "Colisión entre dos motos en una curva."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
+    },
+    {
+        "question": "La velocidad señalizada en carretera representa:",
+        "options": [
+            "La velocidad máxima permitida",
+            "La velocidad mínima obligatoria",
+            "Velocidad recomendada opcional",
+            "Velocidad variable libre"
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 2
+    },
+    {
+        "question": "¿Cuál conducta está expresamente prohibida por la normativa sobre placas?",
+        "options": [
+            "Limpiar la placa metálica con productos adecuados para conservar su legibilidad.",
+            "Colocar la placa adhesiva en el lugar indicado del parabrisas.",
+            "Colocar la placa metálica en un lugar distinto al diseñado, cubrirla con pantallas u obstrucciones, o usar dispositivos modulares que permitan cambiarla de posición.",
+            "Verificar periódicamente que la placa esté horizontal y visible."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
+    },
+    {
+        "question": "¿Qué suele indicar el borde de la acera pintado de amarillo?",
+        "options": [
+            "Que se permite estacionar por 5 minutos.",
+            "Que solo pueden estacionar vehículos livianos.",
+            "Que está prohibido estacionar, o que la prohibición puede limitarse a un horario.",
+            "Que es un espacio exclusivo para motos."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
+    },
+    {
+        "question": "¿qué es un accidente de tránsito?",
+        "options": [
+            "Un daño mecánico del vehículo sin relación con la vía pública.",
+            "Un hecho natural inevitable que no depende de nadie.",
+            "Un evento que solo ocurre entre dos automóviles.",
+            "Un acción culposa cometida por los conductores de los vehículos, pasajeros o los peatones, al transitar por las vías públicas."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
+    },
+    {
+        "question": "¿Qué finalidad tienen los sistemas de contención según las partes de la vía?",
+        "options": [
+            "Aumentar la velocidad de circulación en carreteras primarias.",
+            "Sustituir la necesidad de señalización horizontal en curvas peligrosas.",
+            "Reducir la gravedad de las consecuencias de los accidentes por salida de la vía.",
+            "Evitar que los peatones crucen por lugares no autorizados."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
+    },
+    {
+        "question": "¿Qué ventaja clave tiene el ABS en una frenada de emergencia?",
+        "options": [
+            "Reduce la velocidad del motor.",
+            "Evita desgaste.",
+            "Permite mantener el control de dirección.",
+            "Detiene más rápido siempre."
+        ],
+        "correct_index": 0,
+        "explanation": "Esta es la respuesta correcta según la Ley de Tránsito de Costa Rica y el Manual del Conductor.",
+        "chapter": 1
     }
 ]
