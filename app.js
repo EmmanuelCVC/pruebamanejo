@@ -46,6 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // State
+    let allQuestions = [];
+    let predefinedExams = [];
     let questions = [];
     let currentQuestionIndex = 0;
     let selectedOptionIndex = null;
@@ -65,56 +67,28 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            questions = await response.json();
+            allQuestions = await response.json();
             
-            // Organize questions by chapter
-            const questionsByChapter = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
-            
-            questions.forEach(q => {
-                const ch = q.chapter || 1; // Default to 1 if missing
-                if (questionsByChapter[ch]) {
-                    questionsByChapter[ch].push(q);
+            try {
+                const examsRes = await fetch('examenes.txt');
+                if (examsRes.ok) {
+                    predefinedExams = await examsRes.json();
+                    const select = document.getElementById('specific-exam');
+                    if (select) {
+                        predefinedExams.forEach(exam => {
+                            const opt = document.createElement('option');
+                            opt.value = exam.exam_id;
+                            opt.textContent = exam.name;
+                            opt.style.color = '#000';
+                            select.appendChild(opt);
+                        });
+                    }
                 }
-            });
-            
-            // Shuffle each chapter's questions
-            Object.values(questionsByChapter).forEach(chapArray => {
-                for (let i = chapArray.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [chapArray[i], chapArray[j]] = [chapArray[j], chapArray[i]];
-                }
-            });
-            
-            // Select required amounts: 10 for chap 2, 6 for the rest
-            let selectedQuestions = [];
-            const requirements = { 1: 6, 2: 10, 3: 6, 4: 6, 5: 6, 6: 6 };
-            
-            for (const [ch, amount] of Object.entries(requirements)) {
-                const chapArray = questionsByChapter[ch];
-                selectedQuestions.push(...chapArray.slice(0, Math.min(amount, chapArray.length)));
+            } catch (e) {
+                console.warn("Could not load examenes.txt", e);
             }
             
-            // If we somehow didn't reach 40 (e.g. missing questions in a chapter), fill with random remaining
-            if (selectedQuestions.length < 40) {
-                let remaining = questions.filter(q => !selectedQuestions.includes(q));
-                for (let i = remaining.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [remaining[i], remaining[j]] = [remaining[j], remaining[i]];
-                }
-                const needed = 40 - selectedQuestions.length;
-                selectedQuestions.push(...remaining.slice(0, needed));
-            }
-            
-            // Final shuffle so chapters are mixed during the exam
-            for (let i = selectedQuestions.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [selectedQuestions[i], selectedQuestions[j]] = [selectedQuestions[j], selectedQuestions[i]];
-            }
-            
-            questions = selectedQuestions;
-            
-            // Apply final selection
-            questions = selectedQuestions;
+            questions = allQuestions.slice(0, 40);
             
             // Check for saved state
             if (localStorage.getItem('examState')) {
@@ -204,6 +178,67 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Exam Logic
     function startExam() {
+        const specificExamSelect = document.getElementById('specific-exam');
+        const selectedExamId = specificExamSelect ? specificExamSelect.value : 'random';
+        
+        let selectedQuestions = [];
+
+        if (selectedExamId !== 'random' && predefinedExams.length > 0) {
+            const exam = predefinedExams.find(e => e.exam_id == selectedExamId);
+            if (exam) {
+                selectedQuestions = exam.questions.map(id => allQuestions.find(q => q.id === id)).filter(q => q);
+                
+                // Shuffle the questions in the selected exam so they appear in random order
+                for (let i = selectedQuestions.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [selectedQuestions[i], selectedQuestions[j]] = [selectedQuestions[j], selectedQuestions[i]];
+                }
+            }
+        }
+
+        if (selectedQuestions.length !== 40) {
+            // Random logic
+            const questionsByChapter = { 1: [], 2: [], 3: [], 4: [], 5: [], 6: [] };
+            
+            allQuestions.forEach(q => {
+                const ch = q.chapter || 1;
+                if (questionsByChapter[ch]) {
+                    questionsByChapter[ch].push(q);
+                }
+            });
+            
+            Object.values(questionsByChapter).forEach(chapArray => {
+                for (let i = chapArray.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [chapArray[i], chapArray[j]] = [chapArray[j], chapArray[i]];
+                }
+            });
+            
+            const requirements = { 1: 6, 2: 10, 3: 6, 4: 6, 5: 6, 6: 6 };
+            
+            for (const [ch, amount] of Object.entries(requirements)) {
+                const chapArray = questionsByChapter[ch];
+                selectedQuestions.push(...chapArray.slice(0, Math.min(amount, chapArray.length)));
+            }
+            
+            if (selectedQuestions.length < 40) {
+                let remaining = allQuestions.filter(q => !selectedQuestions.includes(q));
+                for (let i = remaining.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [remaining[i], remaining[j]] = [remaining[j], remaining[i]];
+                }
+                const needed = 40 - selectedQuestions.length;
+                selectedQuestions.push(...remaining.slice(0, needed));
+            }
+            
+            for (let i = selectedQuestions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [selectedQuestions[i], selectedQuestions[j]] = [selectedQuestions[j], selectedQuestions[i]];
+            }
+        }
+        
+        questions = selectedQuestions;
+
         currentQuestionIndex = 0;
         userAnswers = new Array(questions.length).fill(null);
         timeRemaining = totalExamTime;
