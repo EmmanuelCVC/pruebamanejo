@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     predefinedExams = await examsRes.json();
                     const select = document.getElementById('specific-exam');
                     if (select) {
+                        select.innerHTML = '<option value="random" style="color: #000;">Aleatorio</option>';
                         predefinedExams.forEach(exam => {
                             const opt = document.createElement('option');
                             opt.value = exam.exam_id;
